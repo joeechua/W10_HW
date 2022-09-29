@@ -64,7 +64,7 @@
     {
     "mark": {"type": "text", "radius": 160},
     "encoding": {
-      "text": {"field": "employees", "type": "quantitative"}
+      "text": {"field": "profits", "type": "quantitative"}
     }}
   ]
 }
