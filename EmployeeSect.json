@@ -23,10 +23,10 @@
   "transform": [
     {"filter": "year_selection == null || year_selection == datum.year"},
     {
-      "window": [{"op": "rank", "as": "rank"}],
+      "window": [{"op": "rank", "as": "ranks"}],
       "sort": [{"field": "employees", "order": "descending"}]
     },
-    {"filter": "datum.rank <= 10"}
+    {"filter": "datum.ranks <= 10"}
   ],
   "encoding": {
     "order": {"field": "employees", "type": "quantitative", "sort": "descending"},
