@@ -3,12 +3,12 @@
   "description": "A simple donut chart with embedded data.",
   "data": {
     "url": "https://raw.githubusercontent.com/joeechua/W10_HW/main/fortune_500_USA.csv",
-    "format": {"parse": {"employees": "number"}} 
+    "format": {"parse": {"employees": "number"}}
   },
   "width": 500,
-  "height": 400,
+  "height": 190,
   "background": null,
-  "title":{"text":"Top 10 Companies with the Most Employees","fontSize":18},
+  "title": "Top 10 Companies with the Most Employees",
   "params": [
     {
       "name": "year_selection",
@@ -29,10 +29,11 @@
     {"filter": "datum.rank <= 10"}
   ],
   "encoding": {
+    "order": {"field": "employees", "type": "quantitative", "sort": "descending"},
     "theta": {
-      "field": "profits",
+      "field": "employees",
       "type": "quantitative",
-      "stack": true,
+      "stack":true,
       "scale": {"type": "linear", "rangeMax": 1.5708, "rangeMin": -1.5708}
     },
     "color": {
@@ -55,14 +56,15 @@
         "title": "Number of Employees"
       },
       {"field": "year", "type": "nominal", "title": "Year Listed"},
-      {"field":"profits", "type": "quantitative", "title": "Profit"}
+      {"field": "profits", "type": "quantitative", "title": "Profit"}
     ]
   },
   "layer": [
     {"mark": {"type": "arc", "innerRadius": 130}},
     {
-      "mark": {"type": "text", "radius": 220},
-      "encoding": {"text": {"field": "employees", "type":"quantitative"}}
-    }
+    "mark": {"type": "text", "radius": 160},
+    "encoding": {
+      "text": {"field": "employees", "type": "quantitative"}
+    }}
   ]
 }
