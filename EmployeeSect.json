@@ -58,7 +58,7 @@
   "layer": [
     {"mark": {"type": "arc", "innerRadius": 130}},
     {
-      "mark": {"type": "text", "radius": 150},
+      "mark": {"type": "text", "radius": 155},
       "encoding": {"text": {"field": "employees", "type":"quantitative"}}
     }
   ]
