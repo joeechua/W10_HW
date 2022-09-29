@@ -2,7 +2,8 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "A simple donut chart with embedded data.",
   "data": {
-    "url": "https://raw.githubusercontent.com/joeechua/W10_HW/main/fortune_500_USA.csv"
+    "url": "https://raw.githubusercontent.com/joeechua/W10_HW/main/fortune_500_USA.csv",
+    "format": {"parse": {"employees": "number"}} 
   },
   "width": 500,
   "height": 190,
