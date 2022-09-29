@@ -7,6 +7,7 @@
   "width": 500,
   "height": 190,
   "background": null,
+  "title":"Top 10 Companies with the Most Employees",
   "params": [
     {
       "name": "year_selection",
