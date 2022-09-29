@@ -6,9 +6,9 @@
     "format": {"parse": {"employees": "number"}} 
   },
   "width": 500,
-  "height": 190,
+  "height": 400,
   "background": null,
-  "title":"Top 10 Companies with the Most Employees",
+  "title":{"text":"Top 10 Companies with the Most Employees","fontSize":18},
   "params": [
     {
       "name": "year_selection",
@@ -61,7 +61,7 @@
   "layer": [
     {"mark": {"type": "arc", "innerRadius": 130}},
     {
-      "mark": {"type": "text", "radius": 155},
+      "mark": {"type": "text", "radius": 220},
       "encoding": {"text": {"field": "employees", "type":"quantitative"}}
     }
   ]
