@@ -1,66 +1,65 @@
 {
-    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "description": "A simple donut chart with embedded data.",
-    "data": {
-      "url": "https://raw.githubusercontent.com/joeechua/W10_HW/main/fortune_500_USA.csv"
-    },
-    "width": 500,
-    "height": 150,
-    "background": null,
-    "params": [
-        {
-          "name": "year_selection",
-          "bind": {
-            "input": "select",
-            "options": [null, "2019", "2020", "2021"],
-            "labels": ["Overall", "2019", "2020", "2021"],
-            "name": "Select Year: "
-          }
-        }
-      ],
-    "transform": [{"filter":"year_selection == null || year_selection == datum.year"},{
-        "window": [{
-          "op": "rank",
-          "as": "rank"
-        }],
-        "sort": [{ "field": "employees", "order": "descending" }]
-      }, {
-        "filter": "datum.rank <= 10"
-      }],
-    "encoding": {
-      "theta": {"field": "profits", "type": "quantitative", "stack":true, "scale":{"type":"linear","rangeMax":1.5708, "rangeMin":-1.5708}},
-      "color": {"field": "sector", "type": "nominal", "legend": {
-            "title": "Sector",
-            "titleFontSize": 13,
-            "labelFontSize": 12,
-            "titleLimit": 1000,
-            "titlePadding": 10,
-            "labelOffset": 13
-          }},
-      "tooltip": [
-        {
-          "field": "name",
-          "type":"ordinal",
-          "title": "Company"
-        },
-        {
-          "field": "employees",
-          "type":"quantitative",
-          "title": "Number of Employees"
-        },
-        {
-          "field": "year",
-          "type":"nominal",
-          "title": "Year Listed"
-        }
-      ]
-    },
-    "layer":[{
-      "mark":{"type":"arc", "innerRadius":130}},
-      {"mark": {"type": "text", "radius": 170},
-      "encoding": {
-        "text": {"field": "sector", "type": "nominal"}
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "A simple donut chart with embedded data.",
+  "data": {
+    "url": "https://raw.githubusercontent.com/joeechua/W10_HW/main/fortune_500_USA.csv"
+  },
+  "width": 500,
+  "height": 190,
+  "background": null,
+  "params": [
+    {
+      "name": "year_selection",
+      "bind": {
+        "input": "select",
+        "options": [null, "2019", "2020", "2021"],
+        "labels": ["Overall", "2019", "2020", "2021"],
+        "name": "Select Year: "
       }
-    }]
-    
-  }
+    }
+  ],
+  "transform": [
+    {"filter": "year_selection == null || year_selection == datum.year"},
+    {
+      "window": [{"op": "rank", "as": "rank"}],
+      "sort": [{"field": "employees", "order": "descending"}]
+    },
+    {"filter": "datum.rank <= 10"}
+  ],
+  "encoding": {
+    "theta": {
+      "field": "profits",
+      "type": "quantitative",
+      "stack": true,
+      "scale": {"type": "linear", "rangeMax": 1.5708, "rangeMin": -1.5708}
+    },
+    "color": {
+      "field": "sector",
+      "type": "nominal",
+      "legend": {
+        "title": "Sector",
+        "titleFontSize": 13,
+        "labelFontSize": 12,
+        "titleLimit": 1000,
+        "titlePadding": 10,
+        "labelOffset": 13
+      }
+    },
+    "tooltip": [
+      {"field": "name", "type": "ordinal", "title": "Company"},
+      {
+        "field": "employees",
+        "type": "quantitative",
+        "title": "Number of Employees"
+      },
+      {"field": "year", "type": "nominal", "title": "Year Listed"}
+    ]
+  },
+  "layer": [
+    {"mark": {"type": "arc", "innerRadius": 130}},
+    {
+      "mark": {"type": "text", "radius": 150},
+      "encoding": {"text": {"field": "employees", "type":"quantitative"}}
+    }
+  ]
+}
