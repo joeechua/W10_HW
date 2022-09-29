@@ -1,4 +1,4 @@
-,year,rank,name,sector,industry,revenues,revchange,profits,prftchange,assets,employees,hqcity,hqstate,newcomer,profitable,ceowoman,jobgrowth,permalink
+idx,year,rank,name,sector,industry,revenues,revchange,profits,prftchange,assets,employees,hqcity,hqstate,newcomer,profitable,ceowoman,jobgrowth,permalink
 0,2019,1,Walmart,Retailing,General Merchandisers,514405.0,2.8,6670.0,-32.4,219295.0,2200000,Bentonville,Arkansas,no,yes,no,no,https://fortune.com/global500/2019/walmart/
 1,2019,8,Exxon Mobil,Energy,Petroleum Refining,290212.0,18.8,20840.0,5.7,346196.0,71000,Irving,Texas,no,yes,no,no,https://fortune.com/global500/2019/exxon-mobil/
 2,2019,11,Apple,Technology,"Computers, Office Equipment",265595.0,15.9,59531.0,23.1,365725.0,132000,Cupertino,California,no,yes,no,yes,https://fortune.com/global500/2019/apple/
