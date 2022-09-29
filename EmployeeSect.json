@@ -53,7 +53,8 @@
         "type": "quantitative",
         "title": "Number of Employees"
       },
-      {"field": "year", "type": "nominal", "title": "Year Listed"}
+      {"field": "year", "type": "nominal", "title": "Year Listed"},
+      {"field":"profits", "type": "quantitative", "title": "Profit"}
     ]
   },
   "layer": [
