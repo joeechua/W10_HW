@@ -1,0 +1,55 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 700,
+  "height": 400,
+  "title": {"text":"Total Profits from Fortune 500 Companies in Each US State (2019-2021)",  "fontSize":18},
+  "data": {
+    "url": "https://raw.githubusercontent.com/joeechua/W9_HW/main/fortune_500_USA.csv"
+  },
+  "transform": [
+    {
+      "lookup": "hqstate",
+      "from": {
+        "data": {
+          "url": "https://raw.githubusercontent.com/joeechua/W9_HW/main/US_MAP.json",
+          "format": {"type": "topojson", "feature": "US_States_SOVI_Infographics"}
+        },
+        "key": "properties.STATE_NAME"
+      },
+        "as": "state"
+    }, {
+    "joinaggregate": [{
+      "op": "sum",
+      "field": "profits",
+      "as": "TotalCount"
+    }],"groupby": ["hqstate"]}
+  ],
+  "projection": {"type": "albersUsa"},
+  "mark": "geoshape",
+  "encoding": {
+    "shape": {"field": "state", "type": "geojson"},
+    
+    "color": {"field": "TotalCount", "type": "quantitative",
+              "legend": {
+                
+                "title": "Total Profits in 100 Million USD",
+                "titleFontSize":11,
+                "titleAnchor":"start",
+                "direction":"horizontal", 
+                "orient":"bottom-left", 
+                "labelFontSize": 10,
+                "titleLimit":1000
+              
+            },
+            "scale": {
+              "type": "threshold",
+              "domain": [20000,40000,60000, 80000, 100000, 120000],
+              "range": ["#94C58C","#64AD62", "#429B46", "#1A8828", "#0A6921", "#094F01", "#163832"]
+              }},
+    "tooltip": [
+      {"field": "hqstate", "type": "nominal", "title":"State"},
+      {"field": "TotalCount", "type": "quantitative", "title": "Profits in 100 Million USD"}
+      
+    ]
+  }
+}
