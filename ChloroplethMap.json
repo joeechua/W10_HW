@@ -137,7 +137,7 @@
       },
       "transform": [
         {
-          "calculate": "'Data is not available in ' + datum.properties.NAME",
+          "calculate": "'Data is not available in ' + datum.properties.STATE_NAME",
           "as": "note"
         }
       ],
