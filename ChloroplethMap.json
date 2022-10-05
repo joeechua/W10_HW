@@ -1,55 +1,234 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Profit per Employees by US State",
   "width": 700,
   "height": 400,
-  "title": {"text":"Total Profits from Fortune 500 Companies in Each US State (2019-2021)",  "fontSize":18},
-  "data": {
-    "url": "https://raw.githubusercontent.com/joeechua/W9_HW/main/fortune_500_USA.csv"
-  },
-  "transform": [
+  "params": [
     {
+      "name": "state_selection",
+      "bind": {
+        "input": "select",
+        "options": [
+          null,
+          "California",
+          "Nevada",
+          "New York",
+          "Oregon",
+          "Washington",
+          "Minnesota",
+          "Texas",
+          "Illinois",
+          "Louisiana",
+          "Florida",
+          "North Carolina",
+          "Utah",
+          "Virginia",
+          "Hawaii",
+          "Montana",
+          "Pennsylvania",
+          "Wyoming",
+          "New Jersey",
+          "Alabama",
+          "South Carolina",
+          "Connecticut",
+          "New Mexico",
+          "Wisconsin",
+          "Colorado",
+          "Tennessee",
+          "Ohio",
+          "Arizona",
+          "Rhode Island",
+          "Mississippi",
+          "Maryland",
+          "Missouri",
+          "Kentucky",
+          "Michigan",
+          "Indiana",
+          "Nebraska",
+          "Massachusetts",
+          "Kansas",
+          "Arkansas",
+          "Delaware",
+          "Maine",
+          "Iowa",
+          "Alaska",
+          "Oklahoma",
+          "Vermont",
+          "West Virginia",
+          "New Hampshire",
+          "South Dakota",
+          "North Dakota"
+        ],
+        "labels": [
+          "Show All",
+          "California",
+          "Nevada",
+          "New York",
+          "Oregon",
+          "Washington",
+          "Minnesota",
+          "Texas",
+          "Illinois",
+          "Louisiana",
+          "Florida",
+          "North Carolina",
+          "Utah",
+          "Virginia",
+          "Hawaii",
+          "Montana",
+          "Pennsylvania",
+          "Wyoming",
+          "New Jersey",
+          "Alabama",
+          "South Carolina",
+          "Connecticut",
+          "New Mexico",
+          "Wisconsin",
+          "Colorado",
+          "Tennessee",
+          "Ohio",
+          "Arizona",
+          "Rhode Island",
+          "Mississippi",
+          "Maryland",
+          "Missouri",
+          "Kentucky",
+          "Michigan",
+          "Indiana",
+          "Nebraska",
+          "Massachusetts",
+          "Kansas",
+          "Arkansas",
+          "Delaware",
+          "Maine",
+          "Iowa",
+          "Alaska",
+          "Oklahoma",
+          "Vermont",
+          "West Virginia",
+          "New Hampshire",
+          "South Dakota",
+          "North Dakota"
+        ],
+        "name": "Select State: "
+      }
+    },
+    {
+      "name": "year_selection",
+      "bind": {
+        "input": "select",
+        "options": [null, "2019", "2020", "2021"],
+        "labels": ["2019-2021", "2019", "2020", "2021"],
+        "name": "Select Year: "
+      }
+    }
+  ],
+  "projection": {
+    "type": "albersUsa"
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/joeechua/W9_HW/main/US_MAP.json",
+        "format": {
+          "type": "topojson",
+          "feature": "US_States_SOVI_Infographics"
+        }
+      },
+      "transform": [
+        {
+          "calculate": "'Data is not available in ' + datum.properties.NAME",
+          "as": "note"
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "fill": "#ddd",
+        "stroke": "white",
+        "strokeWidth": 1
+      },
+      "encoding": {
+        "tooltip": {
+          "field": "note"
+        }
+      }
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/joeechua/FIT3179_A2/main/fortune_500_USA.csv",
+    "format": {"parse": {"profits": "number", "employees":"number"}}
+      },
+      "transform": [
+        {
       "lookup": "hqstate",
       "from": {
         "data": {
           "url": "https://raw.githubusercontent.com/joeechua/W9_HW/main/US_MAP.json",
-          "format": {"type": "topojson", "feature": "US_States_SOVI_Infographics"}
+          "format": {
+            "type": "topojson",
+            "feature": "US_States_SOVI_Infographics"
+          }
         },
         "key": "properties.STATE_NAME"
       },
-        "as": "state"
-    }, {
-    "joinaggregate": [{
-      "op": "sum",
-      "field": "profits",
-      "as": "TotalCount"
-    }],"groupby": ["hqstate"]}
-  ],
-  "projection": {"type": "albersUsa"},
-  "mark": "geoshape",
-  "encoding": {
+      "as": "state"
+    },
+        {"filter": "year_selection == null || datum.year == year_selection"},
+        {"filter": "state_selection == null || datum.hqstate == state_selection"},
+        {
+      "joinaggregate": [{"op": "sum", "field": "profits", "as": "TotalCount"}],
+      "groupby": ["hqstate"]
+    },
+    {"calculate": "datum.TotalCount/datum.employees", "as": "perc_prof_per_emp"},
+    {"calculate": "datum.perc_prof_per_emp *1000000", "as":"proft_per_emp"}
+      ],
+      "mark": {
+        "type": "geoshape",
+        "stroke": "#fff",
+        "strokeWidth": 0.5
+      },
+      "encoding": {
     "shape": {"field": "state", "type": "geojson"},
-    
-    "color": {"field": "TotalCount", "type": "quantitative",
-              "legend": {
-                
-                "title": "Total Profits in 100 Million USD",
-                "titleFontSize":11,
-                "titleAnchor":"start",
-                "direction":"horizontal", 
-                "orient":"bottom-left", 
-                "labelFontSize": 10,
-                "titleLimit":1000
-              
-            },
-            "scale": {
-              "type": "threshold",
-              "domain": [20000,40000,60000, 80000, 100000, 120000],
-              "range": ["#94C58C","#64AD62", "#429B46", "#1A8828", "#0A6921", "#094F01", "#163832"]
-              }},
+    "color": {
+      "field": "proft_per_emp",
+      "type": "quantitative",
+      "legend": {
+        "title": "Total Profits in 100 Million USD",
+        "titleFontSize": 11,
+        "titleAnchor": "start",
+        "direction": "vertical",
+        "orient": "none",
+        "legendX":820,
+        "labelFontSize": 10,
+        "titleLimit": 1000
+      },
+      "scale": {
+        "type": "threshold",
+        "domain": [200000, 400000, 600000, 800000, 1000000, 1200000],
+        "range": [
+          "#64B6EE",
+          "#4C9ADD",
+          "#427BD2",
+          "#3364C0",
+          "#2C43B0",
+          "#1E2791",
+          "#0B1D51"
+        ]
+      }
+    },
     "tooltip": [
-      {"field": "hqstate", "type": "nominal", "title":"State"},
-      {"field": "TotalCount", "type": "quantitative", "title": "Profits in 100 Million USD"}
-      
+      {"field": "hqstate", "type": "nominal", "title": "State"},
+      {
+        "field": "TotalCount",
+        "type": "quantitative",
+        "title": "Total Profit in 100 Million USD",
+        "format":".0f"
+      },
+      {"field":"proft_per_emp",
+      "format":".0f"}
     ]
   }
+    }
+  ],
+  "config": {}
 }
