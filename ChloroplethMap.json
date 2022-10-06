@@ -225,6 +225,7 @@
         "format":".0f"
       },
       {"field":"proft_per_emp",
+      "title":"Profit per Employee in Millions",
       "format":".0f"}
     ]
   }
